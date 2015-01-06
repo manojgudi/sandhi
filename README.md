@@ -1,3 +1,7 @@
+This repository is kept for historical purposes, to go to updated_repository:  [gnu-sandhi/sandhi](https://github.com/gnu-sandhi/sandhi)
+
+
+
 Sandhi
 ----
 
