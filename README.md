@@ -41,17 +41,17 @@ Clone sciscipy-1.0.0 from our repository; run _install_ script from the director
 Get the source code
 -------------------------------------------------------------------------
 
-    git clone http://github.com/manojgudi/sandhi.git
-    cd sandhi/
-    git submodule init
-    git submodule update
+**For Users**
 
--- UPDATING FROM EXISTING CHECKOUT --
+You can do a shallow clone for a quick clone of source code
+
+```git clone --depth 1 http://github.com/manojgudi/sandhi.git ```
 
 
-    cd sandhi/
-    git pull origin master
-    git submodule update
+**For Developers**
+
+Setting up git subtree:
+_will be added soon_
 
 ------------------------------------------------------------------------
 Build and Install instructions
@@ -75,10 +75,10 @@ http://fossee.in/sandhi_builds/
 FAQ (Frequently Asked Questions)
 --------------------------------------------------------------------------
 
-    
+
 1. I am not able to run SBHS with plant-controller block of Sandhi. <br>
 
 Mostly you don't have sufficient permissions to access /dev/ttyUSB0 (which is SBHS device node in Ubuntu). To solve this, just add your user to _dialout_ group.
-	
+
 	sudo adduser `whoami` dialout
 **Logout User** and check.
