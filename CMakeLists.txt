@@ -10,7 +10,7 @@ set(GRAS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(GRAS_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
 function(GRAS_CHECK_SUBMODULE directory)
-    if(NOT EXISTS ${GRAS_SOURCE_DIR}/${directory}/CMakeLists.txt)
+    if(NOT EXISTS ${GRAS_SOURCE_DIR}/modules/${directory}/CMakeLists.txt)
         message(FATAL_ERROR "
 submodule ${directory} does not exist!!
 Did you remember to run the following commands?
@@ -26,7 +26,7 @@ GRAS_CHECK_SUBMODULE(PMC)
 GRAS_CHECK_SUBMODULE(gr36)
 GRAS_CHECK_SUBMODULE(grex)
 
-list(APPEND CMAKE_MODULE_PATH ${GRAS_SOURCE_DIR}/PMC/cmake/Modules)
+list(APPEND CMAKE_MODULE_PATH ${GRAS_SOURCE_DIR}/modules/PMC/cmake/Modules)
 list(APPEND CMAKE_MODULE_PATH ${GRAS_SOURCE_DIR}/cmake/Modules)
 list(APPEND CMAKE_MODULE_PATH ${GRAS_BINARY_DIR}/cmake/Modules)
 include(GRASCommon)
@@ -70,7 +70,7 @@ set(PMC_COMP_PYTHON ${GRAS_COMP_PYTHON})
 ########################################################################
 # Paths to public headers
 ########################################################################
-list(APPEND GRAS_INCLUDE_DIRS ${GRAS_SOURCE_DIR}/PMC/include)
+list(APPEND GRAS_INCLUDE_DIRS ${GRAS_SOURCE_DIR}/modules/PMC/include)
 list(APPEND GRAS_INCLUDE_DIRS ${GRAS_SOURCE_DIR}/include)
 
 ########################################################################
@@ -80,9 +80,9 @@ list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/python)
 list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/python/gras)
 list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/python/gras/${CMAKE_BUILD_TYPE})
 
-list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/PMC/python)
-list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/PMC/python/PMC)
-list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/PMC/python/PMC/${CMAKE_BUILD_TYPE})
+list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/modules/PMC/python)
+list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/modules/PMC/python/PMC)
+list(APPEND GRAS_PYTHON_DIRS ${GRAS_BINARY_DIR}/modules/PMC/python/PMC/${CMAKE_BUILD_TYPE})
 
 ########################################################################
 # setup helpful submodule vars
@@ -96,9 +96,9 @@ list(APPEND GR_TEST_PYTHON_DIRS ${GRAS_PYTHON_DIRS})
 ########################################################################
 # Add subdirectories
 ########################################################################
+add_subdirectory(lib/)
 add_subdirectory(include/gras)
-add_subdirectory(lib)
-add_subdirectory(PMC)
+add_subdirectory(modules/PMC)
 add_subdirectory(python/gras)
 add_subdirectory(tests)
 add_subdirectory(query)
@@ -108,7 +108,7 @@ add_subdirectory(cmake/Modules)
 # add gnuradio as sub-project
 ########################################################################
 if(NOT GRDIR)
-    set(GRDIR gr36)
+    set(GRDIR modules/gr36)
 endif()
 set(CMAKE_SOURCE_DIR ${GRAS_SOURCE_DIR}/${GRDIR})
 set(CMAKE_BINARY_DIR ${GRAS_BINARY_DIR}/${GRDIR})
@@ -116,7 +116,7 @@ set(CMAKE_BINARY_DIR ${GRAS_BINARY_DIR}/${GRDIR})
 set(GRAS_FOUND TRUE)
 #GRAS_INCLUDE_DIRS, GRAS_LIBRARIES set above
 set(PMC_FOUND TRUE)
-set(PMC_INCLUDE_DIRS ${GRAS_SOURCE_DIR}/PMC/include)
+set(PMC_INCLUDE_DIRS ${GRAS_SOURCE_DIR}/modules/PMC/include)
 set(PMC_LIBRARIES pmc)
 
 #Theron isnt affected by boost thread issues.
@@ -164,8 +164,8 @@ list(APPEND CMAKE_MODULE_PATH ${GRAS_SOURCE_DIR}/cmake/Modules)
 list(APPEND CMAKE_MODULE_PATH ${GRAS_BINARY_DIR}/cmake/Modules)
 set(GRAS_ROOT ${GRAS_SOURCE_DIR})
 list(APPEND GRAS_TEST_ENVIRONS "GRAS_ROOT=${GRAS_SOURCE_DIR}")
-set(CMAKE_SOURCE_DIR ${GRAS_SOURCE_DIR}/grex)
-set(CMAKE_BINARY_DIR ${GRAS_BINARY_DIR}/grex)
+set(CMAKE_SOURCE_DIR ${GRAS_SOURCE_DIR}/modules/grex)
+set(CMAKE_BINARY_DIR ${GRAS_BINARY_DIR}/modules/grex)
 
 #call include to force local include precedence
 include_directories(${GRAS_INCLUDE_DIRS})
@@ -208,7 +208,7 @@ list(APPEND GRAS_TEST_TARGET_DEPS "${GR_TEST_TARGET_DEPS}")
 list(APPEND GRAS_TEST_LIBRARY_DIRS "${GR_TEST_LIBRARY_DIRS}")
 list(APPEND GRAS_TEST_PYTHON_DIRS "${GR_TEST_PYTHON_DIRS}")
 
-add_subdirectory(grex)
+add_subdirectory(modules/grex)
 
 ########################################################################
 # add GREX to gnuradio cpack registry

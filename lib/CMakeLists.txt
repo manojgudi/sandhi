@@ -15,7 +15,7 @@ list(APPEND GRAS_LIBRARIES ${Boost_LIBRARIES})
 ########################################################################
 # Setup Theron Deps
 ########################################################################
-set(THERON_SOURCE_DIR ${GRAS_SOURCE_DIR}/Theron)
+set(THERON_SOURCE_DIR ${GRAS_SOURCE_DIR}/modules/Theron)
 include(${THERON_SOURCE_DIR}/cmake/TheronSetup.cmake)
 include_directories(${THERON_INCLUDE_DIRS})
 link_directories(${THERON_LIBRARY_DIRS})
@@ -30,10 +30,10 @@ add_definitions(-DTHERON_ENABLE_COUNTERS=1)
 ########################################################################
 # Setup Apology Deps
 ########################################################################
-include_directories(${GRAS_SOURCE_DIR}/Apology/include)
-include_directories(${GRAS_SOURCE_DIR}/Apology/lib)
+include_directories(${GRAS_SOURCE_DIR}/modules/Apology/include)
+include_directories(${GRAS_SOURCE_DIR}/modules/Apology/lib)
 
-file(GLOB apology_sources "${GRAS_SOURCE_DIR}/Apology/lib/*.cpp")
+file(GLOB apology_sources "${GRAS_SOURCE_DIR}/modules/Apology/lib/*.cpp")
 list(APPEND GRAS_SOURCES ${apology_sources})
 
 ########################################################################
