@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+##Serializer
+###################################################
+-->
+<block>
+    <name>Ex: Serializer</name>
+    <key>grex_serializer</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/serializer', $mtu, $sync)</make>
+    <param>
+        <name>MTU</name>
+        <key>mtu</key>
+        <value>0</value>
+        <type>int</type>
+        <option><name>Default</name><key>0</key></option>
+    </param>
+    <param>
+        <name>Sync</name>
+        <key>sync</key>
+        <value>True</value>
+        <type>bool</type>
+    </param>
+    <param>
+        <name>Num Inputs</name>
+        <key>num_inputs</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type></type>
+        <nports>$num_inputs</nports>
+    </sink>
+    <source>
+        <name>ser</name>
+        <type></type>
+    </source>
+    <doc>
+The serializer block:
+This block serializes the input stream, messags, and tags; \
+and outputs the serialized data as a PacketMsg message type. \
+The packet message can be sent over a network \
+or possibly -> datagram to stream -> file sink.
+
+An MTU of zero means default ethernet payload sizes.
+
+The synchronous parameter means that equal amounts of items will \
+be consumed from each port when the serialization is performed. \
+Set sync parameter to True if all input ports share a synchronous relationship.
+    </doc>
+</block>

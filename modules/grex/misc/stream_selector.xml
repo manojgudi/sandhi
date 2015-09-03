@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## Blocks stream selector/stream multi-mux
+###################################################
+ -->
+<block>
+    <name>Ex: Stream Selector</name>
+    <key>grex_stream_selector</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/stream_selector', $item_size)
+self.$(id).set_paths($paths)
+</make>
+    <callback>self.$(id).set_paths($paths)</callback>
+    <param>
+        <name>Item Size</name>
+        <key>item_size</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Num Inputs</name>
+        <key>num_inputs</key>
+        <value>2</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Num Outputs</name>
+        <key>num_outputs</key>
+        <value>2</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Paths</name>
+        <key>paths</key>
+        <value>0, 1</value>
+        <type>int_vector</type>
+    </param>
+    <check>len($paths) == $num_inputs</check>
+    <sink>
+        <name>in</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+        <nports>$num_inputs</nports>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+        <nports>$num_outputs</nports>
+    </source>
+    <doc>
+The stream selector block has N inputs and M outputs. \
+Any input port can be directed to any output port. \
+See the set_paths method for how this is controlled. \
+The implementation of this block is totally zero-copy. \
+Stream tags are Forwarded along with the item stream.
+
+Paths sets the path for samples for each input ports.
+
+Paths should be number of input ports in length. \
+Each element represents the destination for an input port. \
+The possible values for each element is an output port index, \
+or the value may also be: -1 to block or -2 to consume.
+
+Ex, a block with one input and two outputs:
+paths = [1] input0 -> output1, output0 nothing.
+
+Ex, a block with two inputs and one output:
+paths = [-1, 0] input0 blocks, input1 -> output0.
+    </doc>
+</block>

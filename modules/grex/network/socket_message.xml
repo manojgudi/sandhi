@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## Socket message block
+###################################################
+ -->
+<block>
+    <name>Ex: Socket Msg</name>
+    <key>grex_socket_message</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/socket_message', $type, $addr, $port, $mtu)</make>
+    <param>
+        <name>Type</name>
+        <key>type</key>
+        <value>TCP_SERVER</value>
+        <type>string</type>
+        <option><name>TCP Server</name><key>TCP_SERVER</key></option>
+        <option><name>TCP Client</name><key>TCP_CLIENT</key></option>
+        <option><name>UDP Server</name><key>UDP_SERVER</key></option>
+        <option><name>UDP Client</name><key>UDP_CLIENT</key></option>
+    </param>
+    <param>
+        <name>Address</name>
+        <key>addr</key>
+        <value>127.0.0.1</value>
+        <type>string</type>
+    </param>
+    <param>
+        <name>Port</name>
+        <key>port</key>
+        <value>12345</value>
+        <type>string</type>
+    </param>
+    <param>
+        <name>MTU</name>
+        <key>mtu</key>
+        <value>0</value>
+        <type>int</type>
+        <hide>#if $mtu() == 0 then 'part' else 'none'#</hide>
+    </param>
+    <sink>
+        <name>in</name>
+        <type></type>
+        <optional>1</optional>
+    </sink>
+    <source>
+        <name>out</name>
+        <type></type>
+        <optional>1</optional>
+    </source>
+    <doc>
+Socket message block:
+
+This block provides input and output message ports \
+that connect up directly with an internal socket. \
+The socket can be a UDP/TCP client/server.
+
+The input port is a message port. \
+Each incoming message is a gras::PacketMsg \
+Other Input messages are dropped.
+
+The output port is a message port. \
+Each outgoing message is a gras::PacketMsg
+
+The following socket types are supported:
+
+UDP_CLIENT - a UDP socket that calls connect. \
+This socket initiates outbound communication \
+before inbound communication is possible.
+
+UDP_SERVER - a UDP socket that calls bind. \
+This socket's outbound destination is \
+the source of the last inbound packet.
+
+TCP_CLIENT - a TCP socket that calls connect. \
+This option expects the TCP server to be running.
+
+TCP_SERVER - a TCP socket thats listens and accepts. \
+This option continually listens for connections. \
+That last connection established is the one used.
+
+Possible values for the type argument are:
+"UDP_CLIENT", "UDP_SERVER", "TCP_CLIENT", "TCP_SERVER"
+    </doc>
+</block>

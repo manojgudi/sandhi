@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## Stream to blob - blob msg output
+###################################################
+ -->
+<block>
+    <name>Ex: Stream2DGram</name>
+    <key>grex_stream_to_datagram</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/stream_to_datagram', $item_size, $mtu)</make>
+    <param>
+        <name>Input Item Size</name>
+        <key>item_size</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>MTU</name>
+        <key>mtu</key>
+        <value>0</value>
+        <type>int</type>
+        <hide>#if $mtu() == 0 then 'part' else 'none'#</hide>
+        <option><name>Automatic</name><key>0</key></option>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+    </sink>
+    <source>
+        <name>out</name>
+        <type></type>
+    </source>
+    <doc>
+Stream to datagram block:
+
+The input port is a stream of items. \
+The output port is a message port.
+
+Each outgoing message is a gras::PacketMsg
+
+For each call of work(), the default behaviour is to post \
+the entire input buffer as the value of the output tag.
+
+The user may override this by setting a non-zero mtu; \
+so that the work function will slice up the input buffer.
+
+Tags are saved to the pkt_msg.info as a PMCList. \
+Each each element of the list is of type gras::Tag. \
+The tag.offset is adjusted relative to the pkt_msg.buff.
+
+The implementation of this block is totally zero-copy.
+
+The MTU in bytes controls the slicing logic. \
+An MTU of zero disables slicing of input buffers.
+    </doc>
+</block>

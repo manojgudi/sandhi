@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+##Simple HTTP Query Server for TopBlock
+###################################################
+ -->
+<block>
+    <name>Ex: Query Server</name>
+    <key>grex_query_server</key>
+    <import>import gras.query</import>
+    <import>import threading</import>
+    <make>self.$(id) = gras.query.http_server(($addr, $port), top_block=self, name=$name)
+thread = threading.Thread(target=self.$(id).serve_forever)
+thread.daemon = True
+thread.start()</make>
+    <param>
+        <name>Name</name>
+        <key>name</key>
+        <value>top_block</value>
+        <type>string</type>
+    </param>
+    <param>
+        <name>Address</name>
+        <key>addr</key>
+        <value>0.0.0.0</value>
+        <type>string</type>
+    </param>
+    <param>
+        <name>Port</name>
+        <key>port</key>
+        <value>8080</value>
+        <type>int</type>
+    </param>
+    <doc>
+This block will start a simple HTTP server for querying flow graph information.
+    </doc>
+</block>

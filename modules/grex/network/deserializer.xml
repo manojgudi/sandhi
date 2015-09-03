@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+##Deserializer
+###################################################
+-->
+<block>
+    <name>Ex: Deserializer</name>
+    <key>grex_deserializer</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/deserializer', $recover)</make>
+    <param>
+        <name>Recovery</name>
+        <key>recover</key>
+        <value>True</value>
+        <type>bool</type>
+        <option><name>On</name><key>True</key></option>
+        <option><name>Off</name><key>False</key></option>
+    </param>
+    <param>
+        <name>Num Outputs</name>
+        <key>num_outputs</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <sink>
+        <name>ser</name>
+        <type></type>
+    </sink>
+    <source>
+        <name>out</name>
+        <type></type>
+        <nports>$num_outputs</nports>
+    </source>
+    <doc>
+The deserializer block:
+This block deserializes the input PacketMsg message type; \
+and outputs the data as stream, messags, and tags. \
+The packet message can be received from a network \
+or possibly from file source -> stream to datagram.
+
+The recovery parameter allows the block \
+to recover packet boundaries from streams or files.
+    </doc>
+</block>

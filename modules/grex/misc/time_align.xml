@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## GREX: time alignment block
+###################################################
+ -->
+<block>
+    <name>Ex: Time Align</name>
+    <key>grex_time_align</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/time_align', $item_size)</make>
+    <param>
+        <name>Item Size</name>
+        <key>item_size</key>
+        <value>8</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Num IOs</name>
+        <key>num_ios</key>
+        <value>2</value>
+        <type>int</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+        <nports>$num_ios</nports>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+        <nports>$num_ios</nports>
+    </source>
+    <doc>
+The time alignment block inputs asynchronous RX streams, \
+and outputs time aligned synchronous RX streams. \
+This block could be used to align multiple USRP sources.
+
+The time alignment block is meant to be robust against \
+stream restarts, packet dropouts, and stream overflows. \
+However, the alignment recovery logic of this block \
+demands that all input streams start out aligned, \
+because the logic looks for matching time tags.
+
+Time tag format: gras::StreamTag, where key is "rx_time", \
+and val is a PMCTuple2(int64 full_seconds, double frac_secs)
+    </doc>
+</block>

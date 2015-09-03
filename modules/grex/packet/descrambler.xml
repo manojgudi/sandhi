@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## Scrambler
+###################################################
+-->
+<block>
+    <name>Ex: Descrambler</name>
+    <key>grex_descrambler</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/descrambler')
+self.$(id).set_poly($poly)
+self.$(id).set_seed($seed)
+self.$(id).set_mode($mode)
+self.$(id).set_sync($sync)</make>
+    <param>
+        <name>Polynomial</name>
+        <key>poly</key>
+        <value>49153</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Seed</name>
+        <key>seed</key>
+        <value>42</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Mode</name>
+        <key>mode</key>
+        <value>multiplicative</value>
+        <type>string</type>
+        <option><name>Additive</name><key>additive</key></option>
+        <option><name>Multiplicative</name><key>multiplicative</key></option>
+    </param>
+    <param>
+        <name>Sync word</name>
+        <key>sync</key>
+        <value></value>
+        <type>string</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>byte</type>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>byte</type>
+    </source>
+    <doc>
+The descrambler block.
+This block performs additive or multiplicative descrambling \
+with programmable LFSR taps, seed value, and sync word.
+
+The following calls are available through the callable interface:
+ - set_poly (int64) - LFSR polynomial taps
+   - Polynomial representation: x^4 + x^3 + 1 = 11001 = 0x19
+ - set_seed (int64) - LFSR initialization value
+ - set_mode (string) - "additive" or "multiplicative"
+ - set_sync (string) - pattern of 1s and 0s
+   - Example pattern: "100111010"
+
+When the sync word is detected, \
+it is stripped from the stream, \
+and the LFSR is reset to the seed value.
+    </doc>
+</block>

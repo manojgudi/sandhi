@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+##ORC block:
+###################################################
+ -->
+<block>
+    <name>Ex: ORC Block</name>
+    <key>grex_orc_block</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/orc_block')
+self.$(id).set_program($kernel_name, open($program_source).read())
+self.$(id).set_kernel_factor($kernel_factor)
+self.$(id).set_production_factor($production_factor)
+self.$(id).set_consumption_offset($consumption_offset)</make>
+    <param>
+        <name>Num inputs</name>
+        <key>num_inputs</key>
+        <value>2</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Num outputs</name>
+        <key>num_outputs</key>
+        <value>1</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Program source</name>
+        <key>program_source</key>
+        <value></value>
+        <type>file_open</type>
+    </param>
+    <param>
+        <name>Kernel name</name>
+        <key>kernel_name</key>
+        <value>my_kernels_name</value>
+        <type>string</type>
+    </param>
+    <param>
+        <name>Kernel Factor</name>
+        <key>kernel_factor</key>
+        <value>1.0</value>
+        <type>real</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Production factor</name>
+        <key>production_factor</key>
+        <value>1.0</value>
+        <type>real</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Consumption offset</name>
+        <key>consumption_offset</key>
+        <value>0</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <sink>
+        <name>in</name>
+        <type></type>
+        <nports>$num_inputs</nports>
+    </sink>
+    <source>
+        <name>out</name>
+        <type></type>
+        <nports>$num_outputs</nports>
+    </source>
+    <doc>
+ORC JIT block:
+The ORC block takes ORC SIMD code, compiles it at runtime, \
+and executes it in the work function of the block.
+
+Program source sets the source code to be run by this block. \
+The source code is an ORC program in text format. \
+The kernel name sets the name of a kernel in the source.
+
+The kernel factor - a kenel execution parameter. \
+This factor controls the size of the ORC kernel loop \
+based on the minimum number of items at each input port. \
+The number of iterations obeys the following calculation:
+
+kernel_iterations = num_input_items*kernel_factor
+
+Default is 1.0
+
+The production factor - a production/consumption parameter. \
+This factor controls how items get produced from this block \
+based on the minimum number of items at each input port. \
+The production value obeys the following calculation:
+
+items_produced = num_input_items*production_factor
+
+Default is 1.0
+
+The consumption offset - a production/consumption parameter. \
+This value controls how items get consumed from this block \
+based on the minimum number of items at each input port. \
+The consumption value obeys the following calculation:
+
+items_consumed = num_input_items-consumption_offset
+
+Default is 0
+    </doc>
+</block>

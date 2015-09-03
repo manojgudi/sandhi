@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## Blocks delay block
+###################################################
+ -->
+<block>
+    <name>Ex: Delay</name>
+    <key>grex_delay</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/delay', $item_size)
+self.$(id).set_delay($delay)
+</make>
+    <callback>self.$(id).set_delay($delay)</callback>
+    <param>
+        <name>Item Size</name>
+        <key>item_size</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Delay</name>
+        <key>delay</key>
+        <value>0</value>
+        <type>int</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+    </source>
+    <doc>
+The delay block imposes a delay in a stream of items.
+
+Notes on the set_delay registered method:
+The delay is measured in an exact count of items. \
+If the delay is positive, zero-valued items will be inserted into the stream. \
+If the delay is negative, items will be remove from the stream. \
+If the delay value is set before the flow graph is executed, \
+the delay will be imposed at the begining of the stream. \
+However, if the flow graph is already running, \
+the delay injection will be non-deterministic.
+    </doc>
+</block>

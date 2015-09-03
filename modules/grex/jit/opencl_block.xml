@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+##OpenCL block:
+###################################################
+ -->
+<block>
+    <name>Ex: OpenCL Block</name>
+    <key>grex_opencl_block</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/opencl_block', $dev_type)
+#for i, s in enumerate($input_sizes())
+self.$(id).set_input_size($i, $s)
+#end for
+#for i, s in enumerate($output_sizes())
+self.$(id).set_output_size($i, $s)
+#end for
+self.$(id).set_program($kernel_name, open($program_source).read(), $build_options)
+self.$(id).set_global_factor = $global_factor
+self.$(id).set_local_size = $local_size
+self.$(id).set_production_factor = $production_factor
+self.$(id).set_consumption_offset = $consumption_offset</make>
+    <param>
+        <name>Device type</name>
+        <key>dev_type</key>
+        <value></value>
+        <type>string</type>
+        <option><name>Auto</name><key></key></option>
+        <option><name>GPU</name><key>GPU</key></option>
+        <option><name>CPU</name><key>CPU</key></option>
+    </param>
+    <param>
+        <name>Num inputs</name>
+        <key>num_inputs</key>
+        <value>2</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Input sizes</name>
+        <key>input_sizes</key>
+        <value>[8, 8]</value>
+        <type>int_vector</type>
+    </param>
+    <param>
+        <name>Num outputs</name>
+        <key>num_outputs</key>
+        <value>1</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Output sizes</name>
+        <key>output_sizes</key>
+        <value>[8]</value>
+        <type>int_vector</type>
+    </param>
+    <param>
+        <name>Program source</name>
+        <key>program_source</key>
+        <value></value>
+        <type>file_open</type>
+    </param>
+    <param>
+        <name>Kernel name</name>
+        <key>kernel_name</key>
+        <value>my_kernels_name</value>
+        <type>string</type>
+    </param>
+    <param>
+        <name>Build options</name>
+        <key>build_options</key>
+        <value></value>
+        <type>string</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Global factor</name>
+        <key>global_factor</key>
+        <value>1.0</value>
+        <type>real</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Local size</name>
+        <key>local_size</key>
+        <value>1</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Production factor</name>
+        <key>production_factor</key>
+        <value>1.0</value>
+        <type>real</type>
+        <hide>part</hide>
+    </param>
+    <param>
+        <name>Consumption offset</name>
+        <key>consumption_offset</key>
+        <value>0</value>
+        <type>int</type>
+        <hide>part</hide>
+    </param>
+    <sink>
+        <name>in</name>
+        <type></type>
+        <nports>$num_inputs</nports>
+    </sink>
+    <source>
+        <name>out</name>
+        <type></type>
+        <nports>$num_outputs</nports>
+    </source>
+    <doc>
+The OpenCL Block creates a wrapper for using Open CL \
+within the GRAS buffering framework for maximum efficiency. \
+GRAS buffers are flexible, memory can be allocated such that \
+it can be used effectivly with upstream and downstream blocks.
+
+If device type parameter is not specified, \
+the block automatically tries both types. \
+The device type can be "CPU" or "GPU".
+
+The global size factor - a kenel execution parameter. \
+This factor controls how get_global_size() is calculated \
+based on the minimum number of items at each input port. \
+The global size value obeys the following calculation:
+ 
+get_global_size() = num_input_items*global_size_factor
+
+Default is 1.0
+
+Local size - a kernel execution parameter. \
+Local size controls the local work size dimension. \
+The kernel will be called with this many work groups: \
+get_global_size()/get_local_size()
+
+Default is 1
+
+The production factor - a production/consumption parameter. \
+This factor controls how items get produced from this block \
+based on the minimum number of items at each input port. \
+The production value obeys the following calculation:
+
+items_produced = num_input_items*production_factor
+
+Default is 1.0
+
+The consumption offset - a production/consumption parameter. \
+This value controls how items get consumed from this block \
+based on the minimum number of items at each input port. \
+The consumption value obeys the following calculation:
+
+items_consumed = num_input_items-consumption_offset
+
+Default is 0
+    </doc>
+</block>

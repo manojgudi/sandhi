@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## Blob to stream - blob msg input
+###################################################
+ -->
+<block>
+    <name>Ex: DGram2Stream</name>
+    <key>grex_datagram_to_stream</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/datagram_to_stream', $item_size)</make>
+    <param>
+        <name>Output Item Size</name>
+        <key>item_size</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type></type>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>byte</type>
+        <vlen>$item_size</vlen>
+    </source>
+    <doc>
+Datagram to stream block:
+
+The input port is a message port. \
+The output port is a stream of items.
+
+Each incoming message is a gras::PacketMsg. \
+If pkt_msg.info contains a PMCList of type gras::Tag, \
+each tag's offset is adjusted for absolute position, \
+and then posted into the output stream. \
+Other Input messages are dropped.
+
+The implementation of this block is totally zero-copy.
+    </doc>
+</block>

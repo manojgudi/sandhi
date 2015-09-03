@@ -1,0 +1,63 @@
+########################################################################
+## GREX license info
+########################################################################
+
+GREX is a cornucopia, or rather hodgepodge of processing blocks.
+Each block carries with it an individual or set of copyright holders;
+and set of library dependencies, each with their own unique licensing:
+
+-----------------------------------------
+-- GRAS dependencies
+-----------------------------------------
+All processing blocks in GREX depend on GRAS,
+the GNU Radio Advanced Scheduler.
+And thus subject to the GRAS licensing.
+https://github.com/guruofquality/gras/wiki
+
+-----------------------------------------
+-- VOLK dependencies
+-----------------------------------------
+Math operator blocks may depend on VOLK,
+the vector optimized library of kernels.
+And thus subject to the VOLK licensing.
+http://gnuradio.org/redmine/projects/gnuradio/wiki/Volk
+
+-----------------------------------------
+-- GNU Radio dependencies
+-----------------------------------------
+Serveral blocks use GNU Radio IP.
+This includes the noise source,
+and the packet de/framer blocks.
+And thus subject to GNU Radio licensing.
+http://gnuradio.org/redmine/projects/gnuradio/wiki
+
+-----------------------------------------
+-- UHD dependencies
+-----------------------------------------
+The UHD control and status port blocks
+require UHD, the USRP hardware driver.
+And thus subject to UHD licensing.
+http://code.ettus.com/redmine/ettus/projects/uhd/wiki
+
+-----------------------------------------
+-- OpenCl dependencies
+-----------------------------------------
+The OpenCl block depends on OpenCl.
+And thus subject to OpenCl licensing.
+http://www.khronos.org/opencl/
+
+-----------------------------------------
+-- ORC dependencies
+-----------------------------------------
+The ORC block depends on ORC,
+the Oil Runtime Compiler
+And thus subject to ORC licensing.
+http://code.entropywave.com/orc/
+
+-----------------------------------------
+-- Clang dependencies
+-----------------------------------------
+The Clang block depends on LLVM,
+The Low Level Virtual Machine.
+And thus subject to LLVM licensing.
+http://llvm.org/

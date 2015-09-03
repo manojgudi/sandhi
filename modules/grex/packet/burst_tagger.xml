@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+###################################################
+## burst tagger
+###################################################
+ -->
+<block>
+    <name>Ex: Burst Tagger</name>
+    <key>grex_burst_tagger</key>
+    <import>import gras</import>
+    <make>gras.make('/grex/burst_tagger', $sps)</make>
+    <param>
+        <name>Samples per symbol</name>
+        <key>sps</key>
+        <value>1</value>
+        <type>int</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>complex</type>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>complex</type>
+    </source>
+    <doc>
+The burst tagger interpolates an end of burst tag \
+onto a stream from a discontinous stream of samples.
+
+A length tag embedded into the input sample stream \
+tells the burst tagger block where to place the EOB tag.
+
+This block is meant to be used after a modulator block:
+packet_framer -> modulator -> burst_tagger -> USRP Sink
+
+The sps param is the modulator's samples per symbol.
+    </doc>
+</block>
