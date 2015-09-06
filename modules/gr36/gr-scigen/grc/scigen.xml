@@ -11,8 +11,7 @@
     <category>scigen</category>
 
     <import>from gnuradio import scigen</import>
-    <make>scigen.generic()
-self.$(id).set_parameters($func_name, $window)
+    <make>scigen.Generic($func_name, $window)
     </make>
     <param>
         <name>IO Type</name>
@@ -38,10 +37,10 @@ self.$(id).set_parameters($func_name, $window)
     </param>
 
     <param>
-    	<name>Window</name>
-	<key>window</key>
-	<value>1</value>
-	<type>int</type>
+        <name>Window</name>
+        <key>window</key>
+        <value>1</value>
+        <type>int</type>
     </param>
     
     <param>
@@ -77,3 +76,4 @@ Scilab Generic Block
 > Make sure you have same n_input_items when you have multiple inputs
    </doc>
 </block>
+

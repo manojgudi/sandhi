@@ -105,35 +105,6 @@ else()
 endif()
 
 ########################################################################
-# Setup factory compiler
-########################################################################
-
-#step 1) call into the LLVM find package
-find_program(LLVM_CONFIG_EXECUTABLE llvm-config DOC "llvm-config executable")
-if(LLVM_CONFIG_EXECUTABLE)
-    find_package(LLVM)
-endif()
-
-#step 2) setup LLVM if found and find Clang
-if(LLVM_FOUND)
-    set(HAVE_JIT_FACTORY TRUE PARENT_SCOPE)
-    add_definitions(-DHAVE_LLVM)
-    add_definitions(${LLVM_CFLAGS})
-    link_directories(${LLVM_LIBRARY_DIRS})
-    include_directories(${LLVM_INCLUDE_DIRS})
-    list(APPEND GRAS_LIBRARIES ${LLVM_MODULE_LIBS})
-    list(APPEND GRAS_LIBRARIES ${LLVM_LDFLAGS})
-    find_package(Clang)
-endif()
-
-#step 3) setup Clang if found
-if(CLANG_FOUND)
-    add_definitions(-DHAVE_CLANG)
-    include_directories(${CLANG_INCLUDE_DIRS})
-    list(APPEND GRAS_LIBRARIES ${CLANG_LIBS})
-endif()
-
-########################################################################
 # Build library
 ########################################################################
 add_library(gras SHARED ${GRAS_SOURCES})

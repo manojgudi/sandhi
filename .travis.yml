@@ -6,6 +6,8 @@
 
  before_install:
   - cat /proc/cpuinfo
+  - sudo apt-get remove llvm-3.4 clang-3.4
+  - sudo apt-get purge llvm-3.4
   - sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
   - sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
   - sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) multiverse"
@@ -18,14 +20,12 @@
   - sudo apt-get install -q libqt4-opengl-dev libqwt5-qt4-dev libfontconfig1-dev libxrender-dev
 
  before_script:
-   - git submodule init
-   - git submodule update
    - mkdir build
    - cd build
    - cmake ../
 
  script: 
-   - make -j 4
+   - make -j 2
  notifications:
    email:
      - manoj.p.gudi@gmail.com
