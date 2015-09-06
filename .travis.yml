@@ -25,7 +25,7 @@
    - cmake ../
 
  script: 
-   - make -j 2
+   - make
  notifications:
    email:
      - manoj.p.gudi@gmail.com
